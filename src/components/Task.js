@@ -9,7 +9,6 @@ function Task({ task, id }) {
 	};
 
 	useEffect(() => {
-		console.log(`Task ${task} is ${isChecked ? 'checked' : 'unchecked'}`);
 		if (isChecked) {
 			taskDiv.current.style.textDecoration = 'line-through';
 		} else {
