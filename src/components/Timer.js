@@ -9,11 +9,7 @@ function Timer({ initialTime }) {
 		let latestDate;
 		let beepTimeout;
 		const handleVisibilityChange = () => {
-			console.log('still running', isRunning);
-			console.log('visibilitychange', document.hidden);
-
 			if (!isRunning) {
-				console.log('not running');
 				return;
 			}
 
@@ -26,7 +22,6 @@ function Timer({ initialTime }) {
 			} else {
 				//user is back
 				const diff = new Date() - latestDate;
-				console.log('diff', diff);
 				setTime(prevTime => Math.max(prevTime - diff, 0));
 				clearTimeout(beepTimeout);
 			}
@@ -79,7 +74,7 @@ function Timer({ initialTime }) {
 		<div>
 			<h1>Timer</h1>
 			<p>{Math.ceil(time / 1000)}</p>
-			<button onClick={() => setTime(Math.ceil(10 * 1000))}>New Random</button>
+			<button onClick={() => setTime(Math.ceil(1000 * 1000))}>New Random</button>
 			<button onClick={handleStart}>Start</button>
 			<button onClick={handleStop}>Stop</button>
 		</div>
