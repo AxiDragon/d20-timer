@@ -5,6 +5,12 @@ const getRandomTime = () => {
 	return Math.ceil(Math.random() * 20) * 60 * 1000;
 };
 
+function formatTime(time) {
+	const minutes = Math.floor(time / 60000);
+	const seconds = Math.floor((time % 60000) / 1000);
+	return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+}
+
 function Timer({ initialTime = getRandomTime() }) {
 	const [time, setTime] = useState(initialTime);
 	const [isRunning, setIsRunning] = useState(false);
@@ -74,7 +80,7 @@ function Timer({ initialTime = getRandomTime() }) {
 	return (
 		<div>
 			<h1>Timer</h1>
-			<p>{Math.ceil(time / 1000)}</p>
+			<p>{formatTime(time)}</p>
 			<button onClick={() => setTime(getRandomTime())}>New Random</button>
 			<button onClick={handleStart}>Start</button>
 			<button onClick={handleStop}>Stop</button>
