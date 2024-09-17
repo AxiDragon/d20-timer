@@ -4,7 +4,7 @@ import TaskList from './components/TaskList';
 function App() {
   return (
     <div className="App">
-      <Timer initialTime={5} />
+      <Timer />
       <TaskList initialTasks={['Task 1', 'Task 2']} />
     </div>
   );

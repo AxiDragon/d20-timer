@@ -1,8 +1,12 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import beep from './audio/beep.mp3';
 
-function Timer({ initialTime }) {
-	const [time, setTime] = useState(initialTime * 1000);
+const getRandomTime = () => {
+	return Math.ceil(Math.random() * 20) * 60 * 1000;
+};
+
+function Timer({ initialTime = getRandomTime() }) {
+	const [time, setTime] = useState(initialTime);
 	const [isRunning, setIsRunning] = useState(false);
 
 	useEffect(() => {
@@ -53,7 +57,7 @@ function Timer({ initialTime }) {
 	}, [isRunning]);
 
 	useEffect(() => {
-		if (time === 0 && isRunning) {
+		if (time === 0) {
 			setIsRunning(false);
 			new Audio(beep).play();
 		};
@@ -67,14 +71,11 @@ function Timer({ initialTime }) {
 		setIsRunning(false);
 	};
 
-	document.addEventListener('visibilitychange', () => {
-	});
-
 	return (
 		<div>
 			<h1>Timer</h1>
 			<p>{Math.ceil(time / 1000)}</p>
-			<button onClick={() => setTime(Math.ceil(1000 * 1000))}>New Random</button>
+			<button onClick={() => setTime(getRandomTime())}>New Random</button>
 			<button onClick={handleStart}>Start</button>
 			<button onClick={handleStop}>Stop</button>
 		</div>
