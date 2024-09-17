@@ -1,7 +1,16 @@
 import React, { useState, useRef } from "react";
 import Task from "./Task";
 
-function TaskList({ initialTasks }) {
+function getTasks() {
+	try {
+		return JSON.parse(localStorage.getItem('tasks')) || [];
+	}
+	catch (error) {
+		return [];
+	}
+}
+
+function TaskList({ initialTasks = getTasks() }) {
 	const taskInput = useRef(null);
 	const [tasks, setTasks] = useState(initialTasks);
 

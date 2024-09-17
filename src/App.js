@@ -5,7 +5,7 @@ function App() {
   return (
     <div className="App">
       <Timer />
-      <TaskList initialTasks={['Task 1', 'Task 2']} />
+      <TaskList />
     </div>
   );
 }
