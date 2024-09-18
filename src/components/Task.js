@@ -23,7 +23,8 @@ function Task({ id, task, time = 5, checked = false }) {
 	return (
 		<div ref={taskDiv}>
 			<input type="checkbox" checked={isChecked} onChange={handleCheckboxChange} />
-			{task} ({time} minutes)
+			{task} <span class="material-symbols-outlined">timer</span>{time}m
+			<span class="material-symbols-outlined">cancel</span>
 		</div>
 	);
 }
