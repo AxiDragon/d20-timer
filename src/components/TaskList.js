@@ -1,33 +1,31 @@
 import React, { useState, useRef } from "react";
 import Task from "./Task";
-
-function getTasks() {
-	try {
-		return JSON.parse(localStorage.getItem('tasks')) || [];
-	}
-	catch (error) {
-		return [];
-	}
-}
+import { getTasks, saveTask } from "../utils/taskManager.js";
 
 function TaskList({ initialTasks = getTasks() }) {
-	const taskInput = useRef(null);
+	const taskText = useRef(null);
+	const taskTime = useRef(null);
 	const [tasks, setTasks] = useState(initialTasks);
 
 	const handleAddTask = () => {
-		const newTasks = [...tasks, taskInput.current.value];
-
-		setTasks(newTasks);
-		localStorage.setItem('tasks', JSON.stringify(newTasks));
+		const newTask = { text: taskText.current.value, time: taskTime.current.value, checked: false };
+		setTasks([...tasks, newTask]);
+		saveTask(newTask);
 	};
 
 	return (
 		<div>
 			<h1>Task List</h1>
-			<input type="text" ref={taskInput} /><button onClick={handleAddTask}>Add Task</button>
+			<label htmlFor="task-text">Task Text</label>
+			<input type="text" ref={taskText} id="task-text" defaultValue="Insert task..." />
+			<br />
+			<label htmlFor="task-text">Task Time</label>
+			<input type="number" ref={taskTime} id="task-time" min="1" max="20" defaultValue="5" />
+			<br />
+			<button onClick={handleAddTask}>Add Task</button>
 			<ul>
-				{tasks.map((task, id) => (
-					<Task key={id} task={task} />
+				{tasks.map((task, i) => (
+					<Task key={i} id={i} task={task.text} checked={task.checked} time={task.time} />
 				))}
 			</ul>
 		</div>

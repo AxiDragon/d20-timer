@@ -1,7 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
+import './task.css';
+import { checkTask } from "../utils/taskManager";
 
-function Task({ task, id }) {
-	const [isChecked, setIsChecked] = useState(false);
+function Task({ id, task, time = 5, checked = false }) {
+	const [isChecked, setIsChecked] = useState(checked);
 	const taskDiv = useRef(null);
 
 	const handleCheckboxChange = () => {
@@ -10,16 +12,18 @@ function Task({ task, id }) {
 
 	useEffect(() => {
 		if (isChecked) {
-			taskDiv.current.style.textDecoration = 'line-through';
+			taskDiv.current.className = 'checked';
 		} else {
-			taskDiv.current.style.textDecoration = 'none';
+			taskDiv.current.className = '';
 		}
+
+		checkTask(id, isChecked);
 	}, [isChecked]);
 
 	return (
-		<div key={id} ref={taskDiv}>
+		<div ref={taskDiv}>
 			<input type="checkbox" checked={isChecked} onChange={handleCheckboxChange} />
-			{task}
+			{task} ({time} minutes)
 		</div>
 	);
 }
