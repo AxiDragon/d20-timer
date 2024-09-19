@@ -33,9 +33,13 @@ function Task({ taskNumber, task, time = 5, checked = false }) {
 
 	return (
 		<div ref={taskDiv} className={styles.task}>
+			<div className={styles.firstRow}></div>
+			<p className={styles.number}>{taskNumber}</p>
 			<div className={styles.info}>
-				<p>{taskNumber} {task}</p>
-				<span className={`material-symbols-outlined ${styles.icon}`}>timer</span>{time}m
+				<p style={{ margin: '0px' }}>{task}</p>
+				<p id={styles.time}>
+					<span id={styles.time} className={`material-symbols-outlined ${styles.icon}`}>timer</span>{time}m
+				</p>
 			</div>
 			<div className={styles.buttons}>
 				<span className={`material-symbols-outlined ${styles.icon}`} onClick={handleCheckboxChange}>

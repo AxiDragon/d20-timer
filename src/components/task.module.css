@@ -4,23 +4,50 @@
 }
 
 .task {
-	display: flex;
+	font-family: 'Poppins', sans-serif;
+	display: grid;
+	grid-template-columns: repeat(5, 1fr);
+	grid-template-rows: 1fr 1fr;
 	align-items: center;
-	padding: 10px;
-	border: 1px solid #000000;
-	border-radius: 25px;
-	max-width: 200px;
+	padding: 15px;
+	background-color: aquamarine;
+	border-radius: 35px;
+	max-width: 300px;
+	margin: 15px;
+}
+
+.number {
+	grid-column: 1;
+	grid-row: 1 / span 2;
+	font-size: 50px;
+	justify-self: center;
+	align-self: center;
+	margin: 0px 10px;
 }
 
 .info {
+	grid-row: 1 / span 2;
+	grid-column: 2/5;
 	font-size: 25px;
-	flex: 2;
+	margin: 0px;
 }
 
 .buttons {
-	flex: 1;
+	grid-column: 5;
+	grid-row: 1 / span 2;
 }
 
 .icon {
-	width: 25px;
+	font-size: 25px;
+}
+
+.buttons .icon {
+	font-size: 50px;
+}
+
+#time {
+	font-size: 15px;
+	margin: 0px;
+	justify-self: start;
+	align-self: start;
 }
