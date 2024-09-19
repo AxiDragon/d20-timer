@@ -21,13 +21,12 @@ function Task({ taskNumber, task, time = 5, checked = false }) {
 			if (isChecked) {
 				taskDiv.current.classList.add(styles.checked);
 			} else {
-				console.log(taskDiv.current.classList);
 				taskDiv.current.classList.remove(styles.checked);
 			}
 		}
 
 		checkTask(taskNumber, isChecked);
-	}, [isChecked]);
+	}, [isChecked, taskNumber]);
 
 	if (!isVisible)
 		return null;
