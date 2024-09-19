@@ -28,13 +28,10 @@ export function createTask(text, time, checked) {
 
 export function saveTask(task) {
 	tasks.push(task);
-	console.log('saving task', task);
-	console.log('tasks', tasks);
 	localStorage.setItem('tasks', JSON.stringify(tasks));
 }
 
 export function deleteTask(number) {
-	console.log('deleting task', number);
 	const i = getIndex(number);
 	if (i !== -1) {
 		tasks.splice(i, 1);

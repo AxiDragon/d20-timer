@@ -12,14 +12,12 @@ function Task({ taskNumber, task, time = 5, checked = false }) {
 	};
 
 	const handleCancel = () => {
-		console.log('clicked on ID ' + taskNumber);
 		deleteTask(taskNumber);
 		setIsVisible(false);
 	};
 
 	useEffect(() => {
 		if (taskDiv.current !== null) {
-			console.log('checking checked of ' + taskNumber);
 			if (isChecked) {
 				taskDiv.current.classList.add(styles.checked);
 			} else {
@@ -31,10 +29,8 @@ function Task({ taskNumber, task, time = 5, checked = false }) {
 		checkTask(taskNumber, isChecked);
 	}, [isChecked]);
 
-	if (!isVisible) {
-		console.log('Is visible for ' + taskNumber + ' is ' + isVisible);
+	if (!isVisible)
 		return null;
-	}
 
 	return (
 		<div ref={taskDiv} className={styles.task}>
