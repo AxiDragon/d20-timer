@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import Task from "./Task";
-import { getTasks, saveTask } from "../utils/taskManager.js";
+import { createTask, getTasks } from "../utils/taskManager.js";
 
 function TaskList({ initialTasks = getTasks() }) {
 	const taskText = useRef(null);
@@ -8,9 +8,9 @@ function TaskList({ initialTasks = getTasks() }) {
 	const [tasks, setTasks] = useState(initialTasks);
 
 	const handleAddTask = () => {
-		const newTask = { text: taskText.current.value, time: taskTime.current.value, checked: false };
-		setTasks([...tasks, newTask]);
-		saveTask(newTask);
+		const clampedTime = Math.min(20, Math.max(1, taskTime.current.value));
+		createTask(taskText.current.value, clampedTime, false);
+		setTasks(getTasks());
 	};
 
 	return (
@@ -24,8 +24,8 @@ function TaskList({ initialTasks = getTasks() }) {
 			<br />
 			<button onClick={handleAddTask}>Add Task</button>
 			<ul>
-				{tasks.map((task, i) => (
-					<Task key={i} id={i} task={task.text} checked={task.checked} time={task.time} />
+				{tasks.map((task) => (
+					<Task key={task.number} taskNumber={task.number} task={task.text} checked={task.checked} time={task.time} />
 				))}
 			</ul>
 		</div>

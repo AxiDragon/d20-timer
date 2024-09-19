@@ -1,0 +1,26 @@
+.checked {
+	text-decoration: line-through;
+	color: #ccc;
+}
+
+.task {
+	display: flex;
+	align-items: center;
+	padding: 10px;
+	border: 1px solid #000000;
+	border-radius: 25px;
+	max-width: 200px;
+}
+
+.info {
+	font-size: 25px;
+	flex: 2;
+}
+
+.buttons {
+	flex: 1;
+}
+
+.icon {
+	width: 25px;
+}
