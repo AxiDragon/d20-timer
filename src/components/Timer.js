@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import beep from './audio/beep.mp3';
+import beep from '../assets/audio/beep.mp3';
 
 const getRandomTime = () => {
 	return Math.ceil(Math.random() * 20) * 60 * 1000;
