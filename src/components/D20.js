@@ -24,7 +24,8 @@ function D20() {
 };
 
 function Model() {
-	const { scene } = useGLTF('/assets/models/d20.glb', true);
+	const path = './assets/models/d20.glb';
+	const { scene } = useGLTF(path, true);
 	const ref = useRef();
 	const textRef = useRef();
 	const { gl, scene: mainScene, camera } = useThree();
