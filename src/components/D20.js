@@ -1,11 +1,16 @@
 import React, { useEffect, useRef } from "react";
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { useGLTF } from '@react-three/drei';
-import { createNoise3D } from 'simplex-noise';
 import * as THREE from 'three';
 import styles from './d20.module.css';
 
-const noise = createNoise3D();
+function getRandomVector(length = 1) {
+	return new THREE.Vector3(getRandom(), getRandom(), getRandom()).normalize().multiplyScalar(length);
+}
+
+function getRandom(amplitude = 1) {
+	return (Math.random() * 2 - 1) * amplitude;
+}
 
 function D20() {
 	return (
@@ -24,6 +29,16 @@ function Model() {
 	const { gl, scene: mainScene, camera } = useThree();
 	const raycaster = new THREE.Raycaster();
 	const mouse = new THREE.Vector2();
+	const randomDirection = useRef(getRandomVector());
+
+	const baseRotation = new THREE.Vector3(0, 55, 0);
+	const rotationOffset = useRef(getRandomVector(0.3));
+	const animationSpeed = 5;
+
+	let spinSpeed = 0;
+	let spinSpeedTarget = useRef(0);
+	let lastClickTime = useRef(-1);
+	let clickFlag = useRef(false);
 
 	useEffect(() => {
 		const handleMouseClick = (event) => {
@@ -36,7 +51,7 @@ function Model() {
 			const intersects = raycaster.intersectObjects(mainScene.children, true);
 
 			if (intersects.length > 0) {
-				console.log('clicked on ' + intersects[0].object.name);
+				clickFlag.current = true;
 			}
 		};
 
@@ -45,15 +60,31 @@ function Model() {
 		return () => {
 			window.removeEventListener('click', handleMouseClick);
 		};
-	}, [camera, mouse, raycaster]);
+	}, [camera, gl.domElement, mainScene.children]);
 
-	useFrame(({ clock }) => {
+	useFrame(({ clock }, delta) => {
 		if (ref.current) {
-			const time = clock.getElapsedTime() / 25;
-			ref.current.rotation.y = 55;
-			ref.current.rotation.x = noise(time, 0, 0) * Math.PI;
-			ref.current.rotation.y = noise(0, time, 0) * Math.PI;
-			ref.current.rotation.z = noise(0, 0, time) * Math.PI;
+			if (clickFlag.current) {
+				clickFlag.current = false;
+				lastClickTime.current = clock.getElapsedTime();
+
+				randomDirection.current = getRandomVector();
+				rotationOffset.current = getRandomVector(.1);
+			}
+
+			const timeSinceLastClick = clock.getElapsedTime() - lastClickTime.current;
+
+			if (timeSinceLastClick < 15) {
+				const t = timeSinceLastClick * animationSpeed;
+				spinSpeedTarget.current = Math.sin(Math.sqrt(t)) * Math.pow(2, -t / 2) * 5;
+			}
+
+			spinSpeed += (spinSpeedTarget.current - spinSpeed) * delta * 100;
+
+			const time = clock.getElapsedTime() * spinSpeed;
+			ref.current.rotation.x = rotationOffset.current.x + baseRotation.x + randomDirection.current.x * time;
+			ref.current.rotation.y = rotationOffset.current.y + baseRotation.y + randomDirection.current.y * time;
+			ref.current.rotation.z = rotationOffset.current.z + baseRotation.z;
 		}
 	});
 	return <primitive ref={ref} object={scene} scale={[2, 2, 2]} />;
