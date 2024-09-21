@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { useGLTF } from '@react-three/drei';
+import { useGLTF, Text } from '@react-three/drei';
 import * as THREE from 'three';
 import styles from './d20.module.css';
 
@@ -26,19 +26,22 @@ function D20() {
 function Model() {
 	const { scene } = useGLTF('/assets/models/d20.glb', true);
 	const ref = useRef();
+	const textRef = useRef();
 	const { gl, scene: mainScene, camera } = useThree();
 	const raycaster = new THREE.Raycaster();
 	const mouse = new THREE.Vector2();
-	const randomDirection = useRef(getRandomVector());
 
 	const baseRotation = new THREE.Vector3(0, 55, 0);
 	const rotationOffset = useRef(getRandomVector(0.3));
+	const randomDirection = useRef(getRandomVector());
+	const baseScale = 1.7;
 	const animationSpeed = 5;
 
+	const spinSpeedTarget = useRef(0);
+	const scaleTarget = useRef(1);
+	const lastClickTime = useRef(-1);
+	const clickFlag = useRef(false);
 	let spinSpeed = 0;
-	let spinSpeedTarget = useRef(0);
-	let lastClickTime = useRef(-1);
-	let clickFlag = useRef(false);
 
 	useEffect(() => {
 		const handleMouseClick = (event) => {
@@ -77,9 +80,13 @@ function Model() {
 			if (timeSinceLastClick < 15) {
 				const t = timeSinceLastClick * animationSpeed;
 				spinSpeedTarget.current = Math.sin(Math.sqrt(t)) * Math.pow(2, -t / 2) * 5;
+
+				const s = t * 5;
+				scaleTarget.current = Math.sin(s) * Math.pow(2, -s / 2) * 0.5 + baseScale;
 			}
 
 			spinSpeed += (spinSpeedTarget.current - spinSpeed) * delta * 100;
+			ref.current.scale.x = ref.current.scale.y = ref.current.scale.z = scaleTarget.current;
 
 			const time = clock.getElapsedTime() * spinSpeed;
 			ref.current.rotation.x = rotationOffset.current.x + baseRotation.x + randomDirection.current.x * time;
@@ -87,7 +94,19 @@ function Model() {
 			ref.current.rotation.z = rotationOffset.current.z + baseRotation.z;
 		}
 	});
-	return <primitive ref={ref} object={scene} scale={[2, 2, 2]} />;
+	return (
+		<>
+			<primitive ref={ref} object={scene} scale={[baseScale, baseScale, baseScale]}>
+				<Text ref={textRef}
+					rotation={[0, Math.PI / 2, 0]}
+					position={[0.85, 0, 0]}
+					fontSize={0.4}
+					color="black"
+				>
+					00:00
+				</Text>
+			</primitive>
+		</>);
 }
 
 export default D20;
