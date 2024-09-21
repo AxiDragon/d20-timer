@@ -12,7 +12,7 @@ export function getTasks() {
 
 export function getTaskNumber() {
 	try {
-		return localStorage.getItem('taskNumber') || 0;
+		return localStorage.getItem('taskNumber') || 1;
 	}
 	catch (error) {
 		return 0;
