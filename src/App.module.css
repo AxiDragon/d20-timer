@@ -1,0 +1,16 @@
+.App {
+	display: grid;
+	grid-template-rows: 1fr 2fr;
+}
+
+.top {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	justify-items: center;
+	align-items: center;
+	background-color: aquamarine;
+}
+
+.bottom {
+	background-color: lightblue;
+}

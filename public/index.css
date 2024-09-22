@@ -1,5 +1,7 @@
-.body {
+body {
 	scrollbar-width: none;
+	margin: 0;
+	background-color: aqua;
 }
 
 .material-symbols-outlined {
