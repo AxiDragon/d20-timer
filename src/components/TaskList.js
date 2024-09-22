@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react";
 import Task from "./Task";
 import { createTask, getTasks } from "../utils/taskManager.js";
+import styles from './css/taskList.module.css';
 
 function TaskList({ initialTasks = getTasks() }) {
 	const taskText = useRef(null);
@@ -23,11 +24,11 @@ function TaskList({ initialTasks = getTasks() }) {
 			<input type="number" ref={taskTime} id="task-time" min="1" max="20" defaultValue="5" />
 			<br />
 			<button onClick={handleAddTask}>Add Task</button>
-			<ul>
+			<div className={styles.taskGrid}>
 				{tasks.map((task) => (
 					<Task key={task.number} taskNumber={task.number} task={task.text} checked={task.checked} time={task.time} />
 				))}
-			</ul>
+			</div>
 		</div>
 	);
 }

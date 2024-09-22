@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { useGLTF, Text } from '@react-three/drei';
 import * as THREE from 'three';
-import styles from './d20.module.css';
+import styles from './css/d20.module.css';
 
 function getRandomVector(length = 1) {
 	return new THREE.Vector3(getRandom(), getRandom(), getRandom()).normalize().multiplyScalar(length);

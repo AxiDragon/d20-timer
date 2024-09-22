@@ -1,11 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
-import styles from './task.module.css';
+import styles from './css/task.module.css';
 import { checkTask, deleteTask } from "../utils/taskManager";
 
 function Task({ taskNumber, task, time = 5, checked = false }) {
 	const [isChecked, setIsChecked] = useState(checked);
 	const [isVisible, setIsVisible] = useState(true);
 	const taskDiv = useRef(null);
+	const taskP = useRef(null);
 
 	const handleCheckboxChange = () => {
 		setIsChecked(!isChecked);
@@ -28,6 +29,10 @@ function Task({ taskNumber, task, time = 5, checked = false }) {
 		checkTask(taskNumber, isChecked);
 	}, [isChecked, taskNumber]);
 
+	useEffect(() => {
+		taskP.current.style.fontSize = `${300 / task.length}px`;
+	}, []);
+
 	if (!isVisible)
 		return null;
 
@@ -36,7 +41,7 @@ function Task({ taskNumber, task, time = 5, checked = false }) {
 			<div className={styles.firstRow}></div>
 			<p className={styles.number}>{taskNumber}</p>
 			<div className={styles.info}>
-				<p style={{ margin: '0px' }}>{task}</p>
+				<p ref={taskP} style={{ margin: '0px' }}>{task}</p>
 				<p id={styles.time}>
 					<span id={styles.time} className={`material-symbols-outlined ${styles.icon}`}>timer</span>{time}m
 				</p>

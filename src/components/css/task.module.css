@@ -11,9 +11,8 @@
 	align-items: center;
 	padding: 15px;
 	background-color: aquamarine;
-	border-radius: 35px;
-	max-width: 300px;
-	margin: 15px;
+	border-radius: 30px;
+	justify-self: stretch;
 }
 
 .number {
