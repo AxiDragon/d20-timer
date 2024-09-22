@@ -12,18 +12,18 @@ function getRandom(amplitude = 1) {
 	return (Math.random() * 2 - 1) * amplitude;
 }
 
-function D20() {
+function D20({ text }) {
 	return (
 		<div className={styles.d20}>
 			<Canvas camera={{ position: [0, 0, 10], fov: 25 }}>
 				<ambientLight intensity={5} />
-				<Model />
+				<Model text={text} />
 			</Canvas>
 		</div>
 	);
 };
 
-function Model() {
+function Model({ text }) {
 	const path = './assets/models/d20.glb';
 	const { scene } = useGLTF(path, true);
 	const ref = useRef();
@@ -104,7 +104,7 @@ function Model() {
 					fontSize={0.4}
 					color="black"
 				>
-					00:00
+					{text}
 				</Text>
 			</primitive>
 		</>);
