@@ -76,10 +76,22 @@ function Timer({ initialTime = getRandomTime() }) {
 		setTime(getRandomTime());
 	}
 
+	function getIcon() {
+		if (isRunning) {
+			return 'pause';
+		} else {
+			return 'play_arrow';
+		}
+	}
+
 	return (
 		<div className={styles.timer}>
 			<D20 text={formatTime(time)} onClick={randomizeTime} />
-			<button onClick={toggleTimer}>{isRunning ? 'Stop' : 'Start'}</button>
+			<button className={styles.button} onClick={toggleTimer}>
+				<span style={{ fontSize: '48px' }} className='material-symbols-outlined'>
+					{getIcon()}
+				</span>
+			</button>
 		</div>
 	);
 }
