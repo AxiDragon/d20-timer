@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import beep from '../assets/audio/beep.mp3';
 import D20 from './D20';
+import styles from './css/timer.module.css';
 
 const getRandomTime = () => {
 	return Math.ceil(Math.random() * 20) * 60 * 1000;
@@ -67,21 +68,18 @@ function Timer({ initialTime = getRandomTime() }) {
 		};
 	}, [time]);
 
-	const handleStart = () => {
-		setIsRunning(true);
+	const toggleTimer = () => {
+		setIsRunning(!isRunning);
 	};
 
-	const handleStop = () => {
-		setIsRunning(false);
-	};
+	function randomizeTime() {
+		setTime(getRandomTime());
+	}
 
 	return (
-		<div>
-			<h1>Timer</h1>
-			<D20 text={formatTime(time)} />
-			<button onClick={() => setTime(getRandomTime())}>New Random</button>
-			<button onClick={handleStart}>Start</button>
-			<button onClick={handleStop}>Stop</button>
+		<div className={styles.timer}>
+			<D20 text={formatTime(time)} onClick={randomizeTime} />
+			<button onClick={toggleTimer}>{isRunning ? 'Stop' : 'Start'}</button>
 		</div>
 	);
 }

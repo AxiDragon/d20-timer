@@ -12,18 +12,18 @@ function getRandom(amplitude = 1) {
 	return (Math.random() * 2 - 1) * amplitude;
 }
 
-function D20({ text }) {
+function D20({ text, onClick }) {
 	return (
 		<div className={styles.d20}>
 			<Canvas camera={{ position: [0, 0, 10], fov: 25 }}>
 				<ambientLight intensity={5} />
-				<Model text={text} />
+				<Model text={text} onClick={onClick} />
 			</Canvas>
 		</div>
 	);
 };
 
-function Model({ text }) {
+function Model({ text, onClick }) {
 	const path = './assets/models/d20.glb';
 	const { scene } = useGLTF(path, true);
 	const ref = useRef();
@@ -56,6 +56,7 @@ function Model({ text }) {
 
 			if (intersects.length > 0) {
 				clickFlag.current = true;
+				onClick();
 			}
 		};
 
