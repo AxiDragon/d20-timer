@@ -1,9 +1,9 @@
 :root {
-	--white: #ffe8e1ff;
-	--black: #0c1713ff;
-	--main-color: #efaac4ff;
-	--secondary-color: #ffc4d1ff;
-	--accent-color: #89023eff;
+	--white: hsl(62, 100%, 94%);
+	--black: hsl(208, 31%, 7%);
+	--main-color: hsl(27, 68%, 80%);
+	--secondary-color: hsl(37, 100%, 88%);
+	--accent-color: hsl(23, 97%, 27%);
 }
 
 body {
@@ -11,6 +11,7 @@ body {
 	margin: 0;
 	color: var(--black);
 	background-color: var(--secondary-color);
+	font-family: 'Poppins', sans-serif;
 }
 
 .material-symbols-outlined {
