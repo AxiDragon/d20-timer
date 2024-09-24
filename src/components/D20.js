@@ -36,7 +36,7 @@ function Model({ text, onClick }) {
 	const rotationOffset = useRef(getRandomVector(0.3));
 	const randomDirection = useRef(getRandomVector());
 	const baseScale = 1.7;
-	const animationSpeed = 5;
+	const animationSpeed = 15;
 
 	const spinSpeedTarget = useRef(0);
 	const scaleTarget = useRef(1);
@@ -85,15 +85,19 @@ function Model({ text, onClick }) {
 
 				const s = t * 5;
 				scaleTarget.current = Math.sin(s) * Math.pow(2, -s / 2) * 0.5 + baseScale;
+
+				spinSpeed += (spinSpeedTarget.current - spinSpeed) * delta * 100;
+				ref.current.scale.x = ref.current.scale.y = ref.current.scale.z = scaleTarget.current;
+
+				const time = clock.getElapsedTime() * spinSpeed;
+				ref.current.rotation.x = rotationOffset.current.x + baseRotation.x + randomDirection.current.x * time;
+				ref.current.rotation.y = rotationOffset.current.y + baseRotation.y + randomDirection.current.y * time;
+				ref.current.rotation.z = rotationOffset.current.z + baseRotation.z;
+			} else {
+				ref.current.rotation.x = rotationOffset.current.x + baseRotation.x;
+				ref.current.rotation.y = rotationOffset.current.y + baseRotation.y;
+				ref.current.rotation.z = rotationOffset.current.z + baseRotation.z;
 			}
-
-			spinSpeed += (spinSpeedTarget.current - spinSpeed) * delta * 100;
-			ref.current.scale.x = ref.current.scale.y = ref.current.scale.z = scaleTarget.current;
-
-			const time = clock.getElapsedTime() * spinSpeed;
-			ref.current.rotation.x = rotationOffset.current.x + baseRotation.x + randomDirection.current.x * time;
-			ref.current.rotation.y = rotationOffset.current.y + baseRotation.y + randomDirection.current.y * time;
-			ref.current.rotation.z = rotationOffset.current.z + baseRotation.z;
 		}
 	});
 	return (
