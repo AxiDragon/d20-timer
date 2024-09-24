@@ -8,9 +8,9 @@
 	grid-template-columns: 1fr 1fr 1fr;
 	justify-items: center;
 	align-items: center;
-	background-color: aquamarine;
+	background-color: var(--main-color);
 }
 
 .bottom {
-	background-color: lightblue;
+	background-color: var(--white);
 }

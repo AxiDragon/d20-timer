@@ -1,7 +1,16 @@
+:root {
+	--white: #ffe8e1ff;
+	--black: #0c1713ff;
+	--main-color: #efaac4ff;
+	--secondary-color: #ffc4d1ff;
+	--accent-color: #89023eff;
+}
+
 body {
 	scrollbar-width: none;
 	margin: 0;
-	background-color: aqua;
+	color: var(--black);
+	background-color: var(--secondary-color);
 }
 
 .material-symbols-outlined {
