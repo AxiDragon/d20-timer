@@ -75,8 +75,7 @@ function Timer({ initialTime = getRandomTime() }) {
 	};
 
 	function randomizeTime() {
-		// setTime(getRandomTime());
-		setTime(5000);
+		setTime(getRandomTime());
 	}
 
 	function getIcon() {

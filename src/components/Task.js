@@ -30,7 +30,9 @@ function Task({ taskNumber, task, time = 5, checked = false }) {
 	}, [isChecked, taskNumber]);
 
 	useEffect(() => {
-		taskP.current.style.fontSize = `${300 / task.length}px`;
+		const fontSize = Math.min(400 / task.length, 45);
+
+		taskP.current.style.fontSize = `${fontSize}px`;
 	}, []);
 
 	if (!isVisible)
@@ -38,22 +40,20 @@ function Task({ taskNumber, task, time = 5, checked = false }) {
 
 	return (
 		<div ref={taskDiv} className={styles.task}>
-			<div className={styles.firstRow}></div>
-			<p className={styles.number}>{taskNumber}</p>
 			<div className={styles.info}>
-				<p ref={taskP} style={{ margin: '0px' }}>{task}</p>
+				<p id={styles.number}>{taskNumber}</p>
+				<p id={styles.taskText} ref={taskP} style={{ margin: '0px' }}>{task}</p>
 				<p id={styles.time}>
 					<span id={styles.time} className={`material-symbols-outlined ${styles.icon}`}>timer</span>{time}m
 				</p>
 			</div>
 			<div className={styles.buttons}>
-				<span className={`material-symbols-outlined ${styles.icon}`} onClick={handleCheckboxChange}>
+				<p className={`material-symbols-outlined ${styles.icon}`} onClick={handleCheckboxChange}>
 					check_circle
-				</span>
-				<br />
-				<span className={`material-symbols-outlined ${styles.icon}`} onClick={handleCancel}>
+				</p>
+				<p className={`material-symbols-outlined ${styles.icon}`} onClick={handleCancel}>
 					cancel
-				</span>
+				</p>
 			</div>
 		</div>
 	);
