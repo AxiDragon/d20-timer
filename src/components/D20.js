@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { Canvas, useFrame, useThree } from '@react-three/fiber';
+import { Canvas, useFrame, useLoader } from '@react-three/fiber';
 import { useGLTF, Text } from '@react-three/drei';
 import * as THREE from 'three';
 import styles from './css/d20.module.css';
@@ -16,7 +16,6 @@ function D20({ text, onClick }) {
 	return (
 		<div className={styles.d20}>
 			<Canvas camera={{ position: [0, 0, 10], fov: 25 }}>
-				<ambientLight intensity={3} />
 				<Model text={text} onClick={onClick} />
 			</Canvas>
 		</div>
@@ -24,7 +23,9 @@ function D20({ text, onClick }) {
 };
 
 function Model({ text, onClick }) {
-	const { scene } = useGLTF('./assets/models/d20.glb', true);
+	const { scene } = useGLTF('./assets/d20.glb', true);
+	const texture = useLoader(THREE.TextureLoader, './assets/d20.png');
+
 	const ref = useRef();
 	const textRef = useRef();
 	const hintRef = useRef();
@@ -42,6 +43,19 @@ function Model({ text, onClick }) {
 	const lastClickTime = useRef(-1);
 	const clickFlag = useRef(false);
 	let spinSpeed = 0;
+
+	useEffect(() => {
+		texture.minFilter = THREE.NearestFilter;
+		texture.magFilter = THREE.NearestFilter;
+
+		if (ref.current) {
+			ref.current.traverse((child) => {
+				if (child.isMesh) {
+					child.material = new THREE.MeshBasicMaterial({ map: texture });
+				}
+			});
+		}
+	}, [scene, texture]);
 
 	useFrame(({ clock }, delta) => {
 		if (ref.current) {
@@ -107,6 +121,8 @@ function Model({ text, onClick }) {
 		onClick();
 	};
 
+	const black = getComputedStyle(document.documentElement).getPropertyValue('--black').trim();
+
 	return (
 		<>
 			<primitive ref={ref} object={scene} scale={[baseScale, baseScale, baseScale]} onClick={onClickHandler}>
@@ -114,7 +130,7 @@ function Model({ text, onClick }) {
 					rotation={[0, Math.PI / 2, 0]}
 					position={[0.85, 0, 0]}
 					fontSize={0.4}
-					color="black"
+					color={black}
 				>
 					{text}
 				</Text>
@@ -122,7 +138,7 @@ function Model({ text, onClick }) {
 			<Text ref={hintRef}
 				position={[0, -1.5, 2]}
 				fontSize={0.3}
-				color="black"
+				color={black}
 			>
 				Click to roll!
 			</Text>
