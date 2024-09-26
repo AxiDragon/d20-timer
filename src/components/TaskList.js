@@ -22,7 +22,7 @@ function TaskList({ initialTasks = getTasks() }) {
 	return (
 		<div className={styles.taskGrid}>
 			{tasks.map((task) => (
-				<Task key={task.number} taskNumber={task.number} task={task.text} checked={task.checked} time={task.time} />
+				<Task key={task.number} taskNumber={task.number} task={task.text} time={task.time} />
 			))}
 		</div>
 	);

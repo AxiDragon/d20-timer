@@ -19,8 +19,8 @@ export function getTaskNumber() {
 	}
 }
 
-export function createTask(text, time, checked) {
-	const task = { number: taskNumber++, text, time, checked };
+export function createTask(text, time) {
+	const task = { number: taskNumber++, text, time };
 	localStorage.setItem('taskNumber', taskNumber);
 	saveTask(task);
 	return task;
@@ -38,14 +38,6 @@ export function deleteTask(number) {
 		tasks.splice(i, 1);
 		localStorage.setItem('tasks', JSON.stringify(tasks));
 		document.dispatchEvent(new CustomEvent('tasksUpdated', { detail: { tasks } }));
-	}
-}
-
-export function checkTask(number, checked) {
-	const i = getIndex(number);
-	if (i !== -1) {
-		tasks[i].checked = checked;
-		localStorage.setItem('tasks', JSON.stringify(tasks));
 	}
 }
 

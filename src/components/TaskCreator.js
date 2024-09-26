@@ -7,7 +7,7 @@ function TaskCreator() {
 
 	const handleAddTask = () => {
 		const clampedTime = Math.min(20, Math.max(1, taskTime.current.value));
-		createTask(taskText.current.value, clampedTime, false);
+		createTask(taskText.current.value, clampedTime);
 	};
 
 	return (

@@ -1,33 +1,16 @@
 import React, { useEffect, useRef, useState } from "react";
 import styles from './css/task.module.css';
-import { checkTask, deleteTask } from "../utils/taskManager";
+import { deleteTask } from "../utils/taskManager";
 
-function Task({ taskNumber, task, time = 5, checked = false }) {
-	const [isChecked, setIsChecked] = useState(checked);
+function Task({ taskNumber, task, time = 5}) {
 	const [isVisible, setIsVisible] = useState(true);
 	const taskDiv = useRef(null);
 	const taskP = useRef(null);
 
-	const handleCheckboxChange = () => {
-		setIsChecked(!isChecked);
-	};
-
-	const handleCancel = () => {
+	const handleComplete = () => {
 		deleteTask(taskNumber);
 		setIsVisible(false);
 	};
-
-	useEffect(() => {
-		if (taskDiv.current !== null) {
-			if (isChecked) {
-				taskDiv.current.classList.add(styles.checked);
-			} else {
-				taskDiv.current.classList.remove(styles.checked);
-			}
-		}
-
-		checkTask(taskNumber, isChecked);
-	}, [isChecked, taskNumber]);
 
 	useEffect(() => {
 		const fontSize = Math.min(400 / task.length, 45);
@@ -48,11 +31,8 @@ function Task({ taskNumber, task, time = 5, checked = false }) {
 				</p>
 			</div>
 			<div className={styles.buttons}>
-				<p className={`material-symbols-outlined ${styles.icon}`} onClick={handleCheckboxChange}>
+				<p className={`material-symbols-outlined ${styles.icon}`} onClick={handleComplete}>
 					check_circle
-				</p>
-				<p className={`material-symbols-outlined ${styles.icon}`} onClick={handleCancel}>
-					cancel
 				</p>
 			</div>
 		</div>
