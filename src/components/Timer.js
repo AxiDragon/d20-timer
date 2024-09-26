@@ -64,7 +64,9 @@ function Timer({ initialTime = getRandomTime() }) {
 	useEffect(() => {
 		if (time === 0) {
 			setIsRunning(false);
-			new Audio(beep).play();
+			const sound = new Audio(beep);
+			sound.volume = localStorage.getItem('volume') || 0.5;
+			sound.play();
 		};
 	}, [time]);
 
@@ -73,7 +75,8 @@ function Timer({ initialTime = getRandomTime() }) {
 	};
 
 	function randomizeTime() {
-		setTime(getRandomTime());
+		// setTime(getRandomTime());
+		setTime(5000);
 	}
 
 	function getIcon() {
