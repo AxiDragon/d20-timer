@@ -16,7 +16,7 @@ function D20({ text, onClick }) {
 	return (
 		<div className={styles.d20}>
 			<Canvas camera={{ position: [0, 0, 10], fov: 25 }}>
-				<ambientLight intensity={5} />
+				<ambientLight intensity={3} />
 				<Model text={text} onClick={onClick} />
 			</Canvas>
 		</div>
@@ -24,14 +24,10 @@ function D20({ text, onClick }) {
 };
 
 function Model({ text, onClick }) {
-	const path = './assets/models/d20.glb';
-	const { scene } = useGLTF(path, true);
-	const { gl, scene: mainScene, camera } = useThree();
+	const { scene } = useGLTF('./assets/models/d20.glb', true);
 	const ref = useRef();
 	const textRef = useRef();
 	const hintRef = useRef();
-	const raycaster = new THREE.Raycaster();
-	const mouse = new THREE.Vector2();
 
 	const baseRotation = new THREE.Vector3(0, 55, 0);
 	const rotationOffset = useRef(getRandomVector(0.3));
@@ -46,29 +42,6 @@ function Model({ text, onClick }) {
 	const lastClickTime = useRef(-1);
 	const clickFlag = useRef(false);
 	let spinSpeed = 0;
-
-	useEffect(() => {
-		const handleMouseClick = (event) => {
-			const bounds = gl.domElement.getBoundingClientRect();
-			mouse.x = ((event.clientX - bounds.left) / bounds.width) * 2 - 1;
-			mouse.y = -((event.clientY - bounds.top) / bounds.height) * 2 + 1;
-
-			raycaster.setFromCamera(mouse, camera);
-
-			const intersects = raycaster.intersectObjects(mainScene.children, true);
-
-			if (intersects.length > 0) {
-				clickFlag.current = true;
-				onClick();
-			}
-		};
-
-		window.addEventListener('click', handleMouseClick);
-
-		return () => {
-			window.removeEventListener('click', handleMouseClick);
-		};
-	}, [camera, gl.domElement, mainScene.children]);
 
 	useFrame(({ clock }, delta) => {
 		if (ref.current) {
@@ -118,7 +91,6 @@ function Model({ text, onClick }) {
 				if (hintScaleTarget.current > 0) {
 					const t = timeSinceLastClick * animationSpeed / 10;
 					hintScaleTarget.current = Math.sqrt(t) - Math.pow(t, 1.5) + 1;
-					console.log(hintScaleTarget.current);
 
 					hintRef.current.scale.x = hintRef.current.scale.y = hintRef.current.scale.z = hintScaleTarget.current;
 				} else {
@@ -128,9 +100,16 @@ function Model({ text, onClick }) {
 
 		}
 	});
+
+
+	const onClickHandler = () => {
+		clickFlag.current = true;
+		onClick();
+	};
+
 	return (
 		<>
-			<primitive ref={ref} object={scene} scale={[baseScale, baseScale, baseScale]}>
+			<primitive ref={ref} object={scene} scale={[baseScale, baseScale, baseScale]} onClick={onClickHandler}>
 				<Text ref={textRef}
 					rotation={[0, Math.PI / 2, 0]}
 					position={[0.85, 0, 0]}
