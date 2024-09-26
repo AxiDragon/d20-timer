@@ -1,17 +1,16 @@
 import Timer from './components/Timer';
 import TaskList from './components/TaskList';
 import styles from './App.module.css';
+import TaskCreator from './components/TaskCreator';
 
 function App() {
   return (
     <div className={styles.App}>
       <div className={styles.top}>
-        <div>
-          info
-        </div>
+        <TaskCreator />
         <Timer />
         <div>
-          task creator
+          info
         </div>
       </div>
       <div className={styles.bottom}>

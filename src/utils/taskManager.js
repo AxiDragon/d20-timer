@@ -21,14 +21,15 @@ export function getTaskNumber() {
 
 export function createTask(text, time, checked) {
 	const task = { number: taskNumber++, text, time, checked };
-	saveTask(task);
 	localStorage.setItem('taskNumber', taskNumber);
+	saveTask(task);
 	return task;
 }
 
 export function saveTask(task) {
 	tasks.push(task);
 	localStorage.setItem('tasks', JSON.stringify(tasks));
+	document.dispatchEvent(new CustomEvent('tasksUpdated', { detail: { tasks } }));
 }
 
 export function deleteTask(number) {
@@ -36,6 +37,7 @@ export function deleteTask(number) {
 	if (i !== -1) {
 		tasks.splice(i, 1);
 		localStorage.setItem('tasks', JSON.stringify(tasks));
+		document.dispatchEvent(new CustomEvent('tasksUpdated', { detail: { tasks } }));
 	}
 }
 
