@@ -112,6 +112,13 @@ function Model({ text, onClick }) {
 					{text}
 				</Text>
 			</primitive>
+			<Text
+				position={[0, -2, 0]}
+				fontSize={0.4}
+				color="black"
+			>
+				Click to roll!
+			</Text>
 		</>);
 }
 
