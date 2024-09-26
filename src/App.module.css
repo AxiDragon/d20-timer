@@ -1,6 +1,6 @@
 .App {
 	display: grid;
-	grid-template-rows: 1fr 2fr;
+	grid-template-rows: 34vh 2fr;
 }
 
 .top {
@@ -9,8 +9,4 @@
 	justify-items: center;
 	align-items: center;
 	background-color: var(--main-color);
-}
-
-.bottom {
-	background-color: var(--white);
 }
