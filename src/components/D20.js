@@ -26,9 +26,10 @@ function D20({ text, onClick }) {
 function Model({ text, onClick }) {
 	const path = './assets/models/d20.glb';
 	const { scene } = useGLTF(path, true);
+	const { gl, scene: mainScene, camera } = useThree();
 	const ref = useRef();
 	const textRef = useRef();
-	const { gl, scene: mainScene, camera } = useThree();
+	const hintRef = useRef();
 	const raycaster = new THREE.Raycaster();
 	const mouse = new THREE.Vector2();
 
@@ -40,6 +41,8 @@ function Model({ text, onClick }) {
 
 	const spinSpeedTarget = useRef(0);
 	const scaleTarget = useRef(1);
+	const hintScaleTarget = useRef(1);
+	const firstClickTime = useRef(-1);
 	const lastClickTime = useRef(-1);
 	const clickFlag = useRef(false);
 	let spinSpeed = 0;
@@ -71,6 +74,11 @@ function Model({ text, onClick }) {
 		if (ref.current) {
 			if (clickFlag.current) {
 				clickFlag.current = false;
+
+				if (firstClickTime.current === -1) {
+					firstClickTime.current = clock.getElapsedTime();
+				}
+
 				lastClickTime.current = clock.getElapsedTime();
 
 				randomDirection.current = getRandomVector();
@@ -99,6 +107,26 @@ function Model({ text, onClick }) {
 				ref.current.rotation.z = rotationOffset.current.z + baseRotation.z;
 			}
 		}
+
+		if (hintRef.current) {
+			const time = clock.getElapsedTime();
+			hintRef.current.position.y = Math.sin(time * 2) * 0.1 - 1.5;
+
+			if (firstClickTime.current !== -1) {
+				const timeSinceLastClick = clock.getElapsedTime() - firstClickTime.current;
+
+				if (hintScaleTarget.current > 0) {
+					const t = timeSinceLastClick * animationSpeed / 10;
+					hintScaleTarget.current = Math.sqrt(t) - Math.pow(t, 1.5) + 1;
+					console.log(hintScaleTarget.current);
+
+					hintRef.current.scale.x = hintRef.current.scale.y = hintRef.current.scale.z = hintScaleTarget.current;
+				} else {
+					hintRef.current.visible = false;
+				}
+			}
+
+		}
 	});
 	return (
 		<>
@@ -112,9 +140,9 @@ function Model({ text, onClick }) {
 					{text}
 				</Text>
 			</primitive>
-			<Text
-				position={[0, -2, 0]}
-				fontSize={0.4}
+			<Text ref={hintRef}
+				position={[0, -1.5, 2]}
+				fontSize={0.3}
 				color="black"
 			>
 				Click to roll!
