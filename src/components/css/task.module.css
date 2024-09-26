@@ -13,6 +13,11 @@
 	background-color: var(--main-color);
 	border-radius: 30px;
 	justify-self: stretch;
+	transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.task:hover {
+	box-shadow: 0px 5px 0px 0px var(--accent-color);
 }
 
 .info {
@@ -34,7 +39,7 @@
 }
 
 .buttons .icon {
-	font-size: 55px;
+	font-size: 75px;
 }
 
 .buttons p {
