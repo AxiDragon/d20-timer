@@ -2,6 +2,7 @@ import Timer from './components/Timer';
 import TaskList from './components/TaskList';
 import styles from './App.module.css';
 import TaskCreator from './components/TaskCreator';
+import StickyButton from './components/StickyButton';
 
 function App() {
   return (
@@ -20,6 +21,10 @@ function App() {
       </div>
       <div className={styles.bottom}>
         <TaskList />
+      </div>
+      <div className={styles.stickyButtons}>
+        <StickyButton iconName='menu' side='right' />
+        <StickyButton iconName='settings' side='left' />
       </div>
     </div>
   );
