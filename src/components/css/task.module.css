@@ -38,6 +38,15 @@ input {
 
 .icon {
 	font-size: 25px;
+	transition: all 0.5s cubic-bezier(0.07, 0.92, 0.1, 1.57);
+}
+
+.icon:hover {
+	transform: scale(1.2);
+}
+
+.icon:active {
+	transform: scale(1.5);
 }
 
 .buttons .icon {
@@ -61,6 +70,8 @@ input {
 	grid-row: 2;
 	margin: 0px;
 	user-select: text;
+	overflow: hidden;
+	width: 215px;
 }
 
 #time {
@@ -77,4 +88,5 @@ input {
 #textInput {
 	width: 250px;
 	margin: 0px;
+	font-size: 28px;
 }
