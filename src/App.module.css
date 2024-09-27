@@ -1,6 +1,8 @@
 .App {
 	display: grid;
-	grid-template-rows: 34vh 2fr;
+	margin: 0px;
+	grid-template-rows: auto;
+	position: relative;
 }
 
 .top {

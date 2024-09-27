@@ -23,7 +23,7 @@ function TaskCreator() {
 	}
 
 	return (
-		<div id={styles.creatorContainer}>
+		<div className="topElement">
 			<h1>Create a task.</h1>
 			<div className={styles.task}>
 				<div className={styles.info}>
