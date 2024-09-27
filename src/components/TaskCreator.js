@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { createTask, getTaskNumber } from "../utils/taskManager";
 import styles from './css/task.module.css';
 
