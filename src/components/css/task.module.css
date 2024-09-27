@@ -1,3 +1,14 @@
+#creatorContainer {
+	position: relative;
+	top: -30%;
+	padding: 30px;
+	padding-top: 100px;
+	border-radius: 0 0 30px 30px;
+	background-color: var(--white);
+	max-height: 30vh;
+	max-width: 380px;
+}
+
 .task {
 	font-family: 'Poppins', sans-serif;
 	display: grid;
@@ -9,6 +20,12 @@
 	border-radius: 30px;
 	justify-self: stretch;
 	transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+input {
+	font-family: 'Poppins', sans-serif;
+	border: none;
+	background-color: transparent;
 }
 
 .task:hover {
@@ -60,4 +77,13 @@
 	font-size: 15px;
 	margin: 0px;
 	align-self: end;
+}
+
+#timeInput {
+	width: 30px;
+}
+
+#textInput {
+	width: 250px;
+	margin: 0px;
 }
