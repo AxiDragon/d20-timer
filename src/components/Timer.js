@@ -75,7 +75,9 @@ function Timer({ initialTime = getRandomTime() }) {
 	};
 
 	function randomizeTime() {
-		setTime(getRandomTime());
+		let newTime = getRandomTime();
+		setTime(newTime);
+		document.dispatchEvent(new CustomEvent('timerUpdated', { detail: { time: newTime } }));
 	}
 
 	function getIcon() {
