@@ -3,6 +3,7 @@ import TaskList from './components/TaskList';
 import styles from './App.module.css';
 import TaskCreator from './components/TaskCreator';
 import StickyButton from './components/StickyButton';
+import OverlayMenu from './components/OverlayMenu';
 
 function App() {
   return (
@@ -26,6 +27,8 @@ function App() {
         <StickyButton iconName='menu' side='right' />
         <StickyButton iconName='settings' side='left' />
       </div>
+      <OverlayMenu openEventName={'menuButtonPressed'} />
+      <OverlayMenu openEventName={'settingsButtonPressed'} />
     </div>
   );
 }
