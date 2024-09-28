@@ -14,7 +14,6 @@ function OverlayMenu({ openEventName, content }) {
 	}
 
 	useEffect(() => {
-		console.log(String(openEventName));
 		document.addEventListener(String(openEventName), openMenu);
 
 		return () => { document.removeEventListener(String(openEventName), openMenu) };
