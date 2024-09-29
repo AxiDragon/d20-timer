@@ -142,7 +142,7 @@ function Model({ text, onClick }) {
 				position={[0, -1.5, 2]}
 				fontSize={0.3}
 				color={black}
-				font="/assets/Poppins-Regular.ttf"
+				font="./assets/Poppins-Regular.ttf"
 			>
 				Click to roll!
 			</Text>
