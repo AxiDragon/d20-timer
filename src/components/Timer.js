@@ -3,10 +3,12 @@ import beep from '../assets/audio/beep.mp3';
 import D20 from './D20';
 import styles from './css/timer.module.css';
 
-const getRandomTime = () => {
-	return (Number((localStorage.getItem('min') || 0))) +
-		Number(Math.ceil(Math.random() * (localStorage.getItem('max') || 20))) * 60 * 1000;
-};
+function getRandomTime() {
+	const min = Number(localStorage.getItem('min') || 0);
+	const max = Number(localStorage.getItem('max') || 20);
+
+	return (min + Math.ceil(Math.random() * (max - min))) * 60 * 1000;
+}
 
 function formatTime(time) {
 	const minutes = Math.floor(time / 60000);

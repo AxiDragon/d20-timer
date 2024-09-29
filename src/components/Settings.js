@@ -6,19 +6,22 @@ function Settings() {
 	const [min, setMin] = useState(localStorage.getItem('min') || 1);
 	const [max, setMax] = useState(localStorage.getItem('max') || 20);
 
-	const handleSliderChange = (e) => {
-		localStorage.setItem('volume', e.target.value);
-		setSliderValue(e.target.value);
+	function handleSliderChange(e) {
+		const clampedValue = Math.min(1, Math.max(0, e.target.value));
+		localStorage.setItem('volume', clampedValue);
+		setSliderValue(clampedValue);
 	};
 
-	const onMinChange = (e) => {
-		localStorage.setItem('min', e.target.value);
-		setMin(e.target.value);
+	function onMinChange(e) {
+		const clampedValue = Math.min(Number(max) - 1, Math.max(1, e.target.value));
+		localStorage.setItem('min', clampedValue);
+		setMin(clampedValue);
 	}
 
-	const onMaxChange = (e) => {
-		localStorage.setItem('max', e.target.value);
-		setMax(e.target.value);
+	function onMaxChange(e) {
+		const clampedValue = Math.max(Number(min) + 1, e.target.value);
+		localStorage.setItem('max', clampedValue);
+		setMax(clampedValue);
 	}
 
 	return (
