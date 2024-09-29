@@ -116,10 +116,8 @@ function Model({ text, onClick }) {
 					hintRef.current.visible = false;
 				}
 			}
-
 		}
 	});
-
 
 	const onClickHandler = () => {
 		clickFlag.current = true;

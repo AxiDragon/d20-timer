@@ -1,4 +1,5 @@
 let tasks = getTasks();
+const tasksByTime = initiateTasksByTime();
 let taskNumber = getTaskNumber();
 
 export function getTasks() {
@@ -8,6 +9,48 @@ export function getTasks() {
 	catch (error) {
 		return [];
 	}
+}
+
+export function getSortedTasks(targetTime) {
+	if (targetTime > 20 || targetTime < 1) {
+		return tasks;
+	}
+
+	const queue = [targetTime];
+	const res = [];
+
+	let i = 1;
+	while ((targetTime + i < 20) || (targetTime - i > 1)) {
+		if (targetTime + i < 20) {
+			queue.push(targetTime + i);
+		}
+		if (targetTime - i > 1) {
+			queue.push(targetTime - i);
+		}
+		i++;
+	}
+
+	while (queue.length > 0) {
+		const time = queue.shift();
+		if (tasksByTime[time]) {
+			res.push(...tasksByTime[time]);
+		}
+	}
+
+	return res;
+}
+
+function initiateTasksByTime() {
+	const tasksByTimeHolder = {};
+
+	tasks.forEach(task => {
+		if (!tasksByTimeHolder[task.time]) {
+			tasksByTimeHolder[task.time] = [];
+		}
+		tasksByTimeHolder[task.time].push(task);
+	});
+
+	return tasksByTimeHolder;
 }
 
 export function getTaskNumber() {
@@ -28,6 +71,14 @@ export function createTask(text, time) {
 
 export function saveTask(task) {
 	tasks.push(task);
+
+	if (!tasksByTime[task.time]) {
+		tasksByTime[task.time] = [];
+	}
+	tasksByTime[task.time].push(task);
+
+	console.log(tasksByTime);
+
 	localStorage.setItem('tasks', JSON.stringify(tasks));
 	document.dispatchEvent(new CustomEvent('tasksUpdated', { detail: { tasks } }));
 }

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Task from "./Task";
-import { getTasks } from "../utils/taskManager.js";
+import { getTasks, getSortedTasks } from "../utils/taskManager.js";
 import styles from './css/taskList.module.css';
 
 function TaskList({ initialTasks = getTasks() }) {
@@ -25,16 +25,9 @@ function TaskList({ initialTasks = getTasks() }) {
 		};
 	}, []);
 
-	function sortedTasks() {
-		if (timerTime === 0)
-			return tasks;
-
-		return tasks.sort((a, b) => Math.abs(timerTime - a.time) - Math.abs(timerTime - b.time));
-	}
-
 	return (
 		<div className={styles.taskGrid}>
-			{sortedTasks().map((task) => (
+			{getSortedTasks(timerTime).map((task) => (
 				<Task key={task.number} taskNumber={task.number} task={task.text} time={task.time} />
 			))}
 		</div>
