@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styles from "./css/settings.module.css";
+import styles from "./css/overlayMenuContent.module.css";
 import beep from "../assets/audio/beep.mp3";
 
 function Settings() {
@@ -32,7 +32,7 @@ function Settings() {
 	};
 
 	return (
-		<div className={styles.Settings}>
+		<div className={styles.OverlayMenuContent}>
 			<h2>Settings</h2>
 			<div>
 				<div>Volume</div>
