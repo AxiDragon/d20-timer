@@ -36,16 +36,16 @@
 	align-self: stretch;
 }
 
-.icon {
+.buttons .icon {
 	font-size: 25px;
 	transition: all 0.5s cubic-bezier(0.07, 0.92, 0.1, 1.57);
 }
 
-.icon:hover {
+.buttons .icon:hover {
 	transform: scale(1.2);
 }
 
-.icon:active {
+.buttons .icon:active {
 	transform: scale(1.5);
 }
 
