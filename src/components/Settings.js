@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import styles from "./css/overlayMenuContent.module.css";
 import beep from "../assets/beep.mp3";
 
@@ -6,6 +6,8 @@ function Settings() {
 	const [sliderValue, setSliderValue] = useState(localStorage.getItem('volume') || 0.5);
 	const [min, setMin] = useState(localStorage.getItem('min') || 1);
 	const [max, setMax] = useState(localStorage.getItem('max') || 20);
+	const warningButton = useRef(null);
+	const deleteButton = useRef(null);
 
 	function handleSliderChange(e) {
 		const clampedValue = Math.min(1, Math.max(0, e.target.value));
@@ -31,6 +33,23 @@ function Settings() {
 		audio.play();
 	};
 
+	const displayWarning = () => {
+		console.log(warningButton.current.style.display);
+		deleteButton.current.style.display = 'inline-block';
+		warningButton.current.style.display = 'none';
+
+		setTimeout(() => {
+			deleteButton.current.style.display = 'none';
+			warningButton.current.style.display = 'inline-block';
+		}, 2000);
+	};
+
+	const deleteData = () => {
+		localStorage.clear();
+
+		window.location.reload();
+	};
+
 	return (
 		<div className={styles.OverlayMenuContent}>
 			<h2>Settings</h2>
@@ -45,7 +64,7 @@ function Settings() {
 					onChange={handleSliderChange}
 				/>
 				<p>Test Volume</p>
-				<button onClick={playSound} className="material-symbols-outlined">
+				<button onClick={playSound} className={`${styles.iconButton} material-symbols-outlined`}>
 					notifications_active
 				</button>
 			</div>
@@ -58,6 +77,14 @@ function Settings() {
 				</p>
 				<input type="number" onChange={onMaxChange} value={max} min={Number(min) + 1} />
 			</div>
+			<br />
+			<div>Delete Data</div>
+			<button className={styles.textButton} onClick={displayWarning} ref={warningButton}>
+				Delete Data
+			</button>
+			<button className={`${styles.textButton} ${styles.deleteButton} `} style={{ display: 'none' }} onClick={deleteData} ref={deleteButton}>
+				Are you sure?
+			</button>
 		</div>
 	);
 }

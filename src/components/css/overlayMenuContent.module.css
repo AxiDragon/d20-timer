@@ -22,14 +22,24 @@
 	border-radius: 50%;
 }
 
+.OverlayMenuContent .iconButton {
+	width: 64px;
+	height: 64px;
+	font-size: 32px;
+	border-radius: 100%;
+	padding: 0px;
+}
+
+.OverlayMenuContent .textButton {
+	font-family: 'Poppins', sans-serif;
+	border-radius: 25px;
+	padding: 5px 25px;
+}
+
 .OverlayMenuContent button {
 	border: none;
 	color: var(--white);
 	background-color: var(--accent-color);
-	font-size: 32px;
-	border-radius: 100%;
-	width: 64px;
-	height: 64px;
 	transition: all 0.5s cubic-bezier(0.07, 0.92, 0.1, 1.57);
 }
 
@@ -39,6 +49,10 @@
 
 .OverlayMenuContent button:active {
 	transform: scale(1.5);
+}
+
+.deleteButton {
+	background-color: rgb(255, 95, 95) !important;
 }
 
 .rangeInput {
