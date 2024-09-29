@@ -74,7 +74,7 @@ function Model({ text, onClick }) {
 
 			const timeSinceLastClick = clock.getElapsedTime() - lastClickTime.current;
 
-			if (timeSinceLastClick < 15) {
+			if (timeSinceLastClick < animationSpeed / 5) {
 				const t = timeSinceLastClick * animationSpeed;
 				spinSpeedTarget.current = Math.sin(Math.sqrt(t)) * Math.pow(2, -t / 2) * 5;
 
@@ -88,10 +88,15 @@ function Model({ text, onClick }) {
 				ref.current.rotation.x = rotationOffset.current.x + baseRotation.x + randomDirection.current.x * time;
 				ref.current.rotation.y = rotationOffset.current.y + baseRotation.y + randomDirection.current.y * time;
 				ref.current.rotation.z = rotationOffset.current.z + baseRotation.z;
+
+				const offset = -animationSpeed * 3;
+				const textScale = Math.min(1, 1 - 1 / (1 + Math.max(0, t * 3 + offset)));
+				textRef.current.scale.x = textRef.current.scale.y = textRef.current.scale.z = textScale;
 			} else {
 				ref.current.rotation.x = rotationOffset.current.x + baseRotation.x;
 				ref.current.rotation.y = rotationOffset.current.y + baseRotation.y;
 				ref.current.rotation.z = rotationOffset.current.z + baseRotation.z;
+				textRef.current.scale.x = textRef.current.scale.y = textRef.current.scale.z = 1;
 			}
 		}
 
