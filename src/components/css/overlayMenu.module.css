@@ -11,9 +11,24 @@
 	background-color: var(--background-accent);
 }
 
+.OverlayMenu input {
+	text-align: center;
+	width: 50px;
+	border: none;
+	background-color: var(--white);
+	border-radius: 25px;
+}
+
+.OverlayMenu input[type='number'] {
+	padding-left: 15px;
+}
+
 .content {
 	position: relative;
-	display: inline-block;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-self: center;
 	text-align: center;
 	padding: 25px;
 	border-radius: 35px;

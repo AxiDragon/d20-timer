@@ -1,0 +1,35 @@
+.Settings input[type='range'] {
+	-webkit-appearance: none;
+	appearance: none;
+	width: 100%;
+}
+
+.Settings input[type='range']::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	appearance: none;
+	width: 20px;
+	height: 20px;
+	background: var(--accent-color);
+	border-radius: 50%;
+}
+
+.Settings input[type='range']::-moz-range-thumb {
+	-webkit-appearance: none;
+	appearance: none;
+	width: 20px;
+	height: 20px;
+	background: var(--accent-color);
+	border-radius: 50%;
+}
+
+.rangeInput {
+	margin: 0px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 5px;
+}
+
+.rangeInput * {
+	margin: 0px;
+}

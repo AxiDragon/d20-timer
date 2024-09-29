@@ -4,8 +4,13 @@ import styles from './App.module.css';
 import TaskCreator from './components/TaskCreator';
 import StickyButton from './components/StickyButton';
 import OverlayMenu from './components/OverlayMenu';
+import Settings from './components/Settings';
 
 function App() {
+  const settings = (
+    <Settings />
+  );
+
   return (
     <div className={styles.App}>
       <div className={styles.top}>
@@ -27,8 +32,8 @@ function App() {
         <StickyButton iconName='menu' side='right' />
         <StickyButton iconName='settings' side='left' />
       </div>
-      <OverlayMenu openEventName={'menuButtonPressed'} />
-      <OverlayMenu openEventName={'settingsButtonPressed'} />
+      <OverlayMenu openEventName={'menuButtonPressed'} content={settings} />
+      <OverlayMenu openEventName={'settingsButtonPressed'} content={settings} />
     </div>
   );
 }

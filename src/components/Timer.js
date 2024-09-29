@@ -4,7 +4,8 @@ import D20 from './D20';
 import styles from './css/timer.module.css';
 
 const getRandomTime = () => {
-	return Math.ceil(Math.random() * 20) * 60 * 1000;
+	return (Number((localStorage.getItem('min') || 0))) +
+		Number(Math.ceil(Math.random() * (localStorage.getItem('max') || 20))) * 60 * 1000;
 };
 
 function formatTime(time) {
