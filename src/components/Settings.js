@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styles from "./css/settings.module.css";
+import beep from "../assets/audio/beep.mp3";
 
 function Settings() {
 	const [sliderValue, setSliderValue] = useState(localStorage.getItem('volume') || 0.5);
@@ -24,19 +25,30 @@ function Settings() {
 		setMax(clampedValue);
 	}
 
+	const playSound = () => {
+		const audio = new Audio(beep);
+		audio.volume = sliderValue;
+		audio.play();
+	};
+
 	return (
 		<div className={styles.Settings}>
 			<h2>Settings</h2>
-			<div>Volume</div>
-			<input
-				type="range"
-				min="0"
-				max="1"
-				step="0.01"
-				value={sliderValue}
-				onChange={handleSliderChange}
-			/>
-			<br />
+			<div>
+				<div>Volume</div>
+				<input
+					type="range"
+					min="0"
+					max="1"
+					step="0.01"
+					value={sliderValue}
+					onChange={handleSliderChange}
+				/>
+				<p>Test Volume</p>
+				<button onClick={playSound} className="material-symbols-outlined">
+					notifications_active
+				</button>
+			</div>
 			<br />
 			<div>Dice Range</div>
 			<div className={styles.rangeInput}>

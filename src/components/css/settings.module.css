@@ -22,6 +22,25 @@
 	border-radius: 50%;
 }
 
+.Settings button {
+	border: none;
+	color: var(--white);
+	background-color: var(--accent-color);
+	font-size: 32px;
+	border-radius: 100%;
+	width: 64px;
+	height: 64px;
+	transition: all 0.5s cubic-bezier(0.07, 0.92, 0.1, 1.57);
+}
+
+.Settings button:hover {
+	transform: scale(1.2);
+}
+
+.Settings button:active {
+	transform: scale(1.5);
+}
+
 .rangeInput {
 	margin: 0px;
 	display: flex;
