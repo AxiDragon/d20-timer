@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import beep from '../assets/audio/beep.mp3';
+import beep from '../assets/beep.mp3';
 import D20 from './D20';
 import styles from './css/timer.module.css';
 

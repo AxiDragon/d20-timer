@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "./css/overlayMenuContent.module.css";
-import beep from "../assets/audio/beep.mp3";
+import beep from "../assets/beep.mp3";
 
 function Settings() {
 	const [sliderValue, setSliderValue] = useState(localStorage.getItem('volume') || 0.5);
