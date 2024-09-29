@@ -38,6 +38,8 @@ function Timer({ initialTime = getRandomTime() }) {
 				//user is back
 				const diff = new Date() - latestDate;
 				setTime(prevTime => Math.max(prevTime - diff, 0));
+				localStorage.setItem('timeSpent', Number(localStorage.getItem('timeSpent') || 0) + diff);
+
 				clearTimeout(beepTimeout);
 			}
 		};
@@ -58,6 +60,7 @@ function Timer({ initialTime = getRandomTime() }) {
 					return;
 				}
 				setTime(prevTime => Math.max(prevTime - 1000, 0));
+				localStorage.setItem('timeSpent', Number(localStorage.getItem('timeSpent') || 0) + 1000);
 			}, 1000);
 		}
 

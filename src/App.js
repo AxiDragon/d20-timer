@@ -5,10 +5,15 @@ import TaskCreator from './components/TaskCreator';
 import StickyButton from './components/StickyButton';
 import OverlayMenu from './components/OverlayMenu';
 import Settings from './components/Settings';
+import Statistics from './components/Statistics';
 
 function App() {
   const settings = (
     <Settings />
+  );
+
+  const statistics = (
+    <Statistics />
   );
 
   return (
@@ -32,7 +37,7 @@ function App() {
         <StickyButton iconName='menu' side='right' />
         <StickyButton iconName='settings' side='left' />
       </div>
-      <OverlayMenu openEventName={'menuButtonPressed'} content={settings} />
+      <OverlayMenu openEventName={'menuButtonPressed'} content={statistics} />
       <OverlayMenu openEventName={'settingsButtonPressed'} content={settings} />
     </div>
   );

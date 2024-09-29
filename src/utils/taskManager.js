@@ -38,6 +38,9 @@ export function deleteTask(number) {
 		tasks.splice(i, 1);
 		localStorage.setItem('tasks', JSON.stringify(tasks));
 		document.dispatchEvent(new CustomEvent('tasksUpdated', { detail: { tasks } }));
+
+		//task completed
+		localStorage.setItem('tasksCompleted', Number(localStorage.getItem('tasksCompleted') || 0) + 1);
 	}
 }
 
