@@ -20,8 +20,8 @@ export function getSortedTasks(targetTime) {
 	const res = [];
 
 	let i = 1;
-	while ((targetTime + i < 20) || (targetTime - i > 1)) {
-		if (targetTime + i < 20) {
+	while ((targetTime + i <= 20) || (targetTime - i > 1)) {
+		if (targetTime + i <= 20) {
 			queue.push(targetTime + i);
 		}
 		if (targetTime - i > 1) {
