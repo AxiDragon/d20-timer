@@ -4,8 +4,6 @@ import D20 from './D20';
 import styles from './css/timer.module.css';
 
 function getRandomTime() {
-	return 5000;
-
 	const min = Number(localStorage.getItem('min') || 0);
 	const max = Number(localStorage.getItem('max') || 20);
 
