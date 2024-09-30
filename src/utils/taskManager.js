@@ -77,8 +77,6 @@ export function saveTask(task) {
 	}
 	tasksByTime[task.time].push(task);
 
-	console.log(tasksByTime);
-
 	localStorage.setItem('tasks', JSON.stringify(tasks));
 	document.dispatchEvent(new CustomEvent('tasksUpdated', { detail: { tasks } }));
 }
