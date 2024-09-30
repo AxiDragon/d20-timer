@@ -2,7 +2,7 @@ let tasks = getTasks();
 const tasksByTime = initiateTasksByTime();
 let taskNumber = getTaskNumber();
 
-export function getTasks() {
+function getTasks() {
 	try {
 		return JSON.parse(localStorage.getItem('tasks')) || [];
 	}
