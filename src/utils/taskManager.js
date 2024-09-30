@@ -13,7 +13,7 @@ function getTasks() {
 
 export function getSortedTasks(targetTime) {
 	if (targetTime > 20 || targetTime < 1) {
-		return tasks;
+		return getTasks();
 	}
 
 	const queue = [targetTime];
