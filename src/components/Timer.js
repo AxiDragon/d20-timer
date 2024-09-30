@@ -4,6 +4,8 @@ import D20 from './D20';
 import styles from './css/timer.module.css';
 
 function getRandomTime() {
+	return 5000;
+
 	const min = Number(localStorage.getItem('min') || 0);
 	const max = Number(localStorage.getItem('max') || 20);
 
@@ -32,6 +34,9 @@ function Timer({ initialTime = getRandomTime() }) {
 				//user is away
 				latestDate = new Date();
 				beepTimeout = setTimeout(() => {
+					//if the user is away when the timer ends, use the time spent away as the time spent
+					localStorage.setItem('timeSpent', Number(localStorage.getItem('timeSpent') || 0) + time);
+
 					setTime(0);
 				}, time);
 			} else {
