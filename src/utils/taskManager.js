@@ -84,7 +84,13 @@ export function saveTask(task) {
 export function deleteTask(number) {
 	const i = getIndex(number);
 	if (i !== -1) {
+		const task = tasks[i];
+
 		tasks.splice(i, 1);
+
+		const j = tasksByTime[task.time].findIndex(task => task.number === number);
+		tasksByTime[task.time].splice(j, 1);
+
 		localStorage.setItem('tasks', JSON.stringify(tasks));
 		document.dispatchEvent(new CustomEvent('tasksUpdated', { detail: { tasks } }));
 
